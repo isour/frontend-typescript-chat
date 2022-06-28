@@ -1,0 +1,23 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "proxy": "http://localhost:5001",
+  "description": "[![Actions Status](https://github.com/isour/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/isour/frontend-project-lvl4/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isour/frontend-project-lvl4.git"
+  },
+  "author": "isour",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isour/frontend-project-lvl4/issues"
+  },
+  "homepage": "https://github.com/isour/frontend-project-lvl4#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^1.0.0"
+  }
+}
