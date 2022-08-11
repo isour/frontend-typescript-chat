@@ -5,8 +5,7 @@ import axios from "axios";
 import { Formik, Form as FormikForm, useFormik } from "formik";
 import * as Yup from "yup";
 
-import useUserName from "../hooks/useUserName.js";
-import AuthContext from "../contexts/AuthContext.js";
+import useAuth from "../hooks/useAuth.js";
 
 import routes from "../routes";
 
@@ -18,11 +17,8 @@ const loginValidation = Yup.object().shape({
 
 
 const Login = () => {
-    // const userName = useContext(AuthContext);
-    // console.log(userName, '123');
-    const location = useLocation();
     const navigate = useNavigate();
-    const { userName, saveAuth } = useUserName();
+    const { user, logIn } = useAuth();
     
     const [authFailed, setAuthFailed] = useState(false);
 
@@ -31,14 +27,14 @@ const Login = () => {
         setAuthFailed(false);
         setSubmitting(true);
         try {
-            const response = await axios.post(routes.loginBackPath(), values);
+            const response = await axios.post(routes.backend.loginPath(), values);
             const token = response.data.token;
-            AuthContext.logIn(token, values.username);
             setAuthFailed(false);
             setStatus("USER_LOGINED_IN");
             setSubmitting(false);
-            saveAuth({
-                userName: 'user'
+            logIn({
+                token,
+                userName: values.username
             });
             navigate(routes.chatPath());
         } catch(error) {
@@ -58,7 +54,8 @@ const Login = () => {
             {(formik) => (
                 <div className="card-body p-5">
                     <h1 className="text-center mb-4">Login</h1>
-                    <span>{userName.userName}</span>
+                    <span>{user.userName}</span>
+                    <span>{user.token}</span>
                     <FormikForm>
                         <Form.Group className="mb-3" controlId="login-username">
                             <Form.Label>Email address</Form.Label>

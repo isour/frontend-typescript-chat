@@ -1,0 +1,19 @@
+.chat-layout {
+    display: grid;
+    grid-template-areas: "rooms messages" "rooms form";
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr 100px;
+    height: 100vh;
+}
+
+.chat-layout__rooms {
+    grid-area: rooms;
+}
+
+.chat-layout__messages {
+    grid-area: messages;
+}
+
+.chat-layout__form {
+    grid-area: form;
+}

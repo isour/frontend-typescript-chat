@@ -1,6 +1,12 @@
 // @ts-check
-export default {
+
+const routes = {
     loginPath: () => '/login',
     chatPath: () => '/',
-    loginBackPath: () => '/api/v1/login'
-};
+    backend: {
+        loginPath: () => '/api/v1/login',
+        dataPath: () => '/api/v1/data',
+    }
+}
+
+export default routes;
