@@ -2,16 +2,30 @@
     display: grid;
     grid-template-areas: "rooms messages" "rooms form";
     grid-template-columns: 300px 1fr;
-    grid-template-rows: 1fr 100px;
-    height: 100vh;
+    grid-template-rows: 1fr auto;
+    height: calc(100vh - 20px);
+    padding: 10px;
+    max-width: 1024px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    gap: 10px;
 }
 
 .chat-layout__rooms {
     grid-area: rooms;
+    overflow-y: auto;
+    border-right: 1px solid #f1f1f1;
+    margin: -10px 0;
+    padding: 10px;
+    padding-left: 0;
 }
 
 .chat-layout__messages {
     grid-area: messages;
+    overflow-y: auto;
 }
 
 .chat-layout__form {

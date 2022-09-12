@@ -1,2 +1,45 @@
 @import "~bootstrap/scss/bootstrap";
 
+body {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+.form-text {
+    display: block;
+    padding: 8px 10px;
+    margin: 0;
+    border: 1px solid #000;
+    font-size: 1rem;
+    border-radius: 4px;
+    width: 100%;
+    outline: none;
+    color: #000;
+}
+
+.form-text_error,
+.form-text_error:focus-visible,
+.form-text_error:focus {
+    border-color: red;
+}
+
+.button {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: #0b5ed7;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.button_secondary {
+    background-color: #5c636a;
+    color: #fff;
+}
+
+.form-error {
+    font-size: 0.8rem;
+    color: red;
+}

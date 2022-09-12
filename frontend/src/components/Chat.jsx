@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from "axios";
 import { createSlice } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import routes from "../routes";
 
@@ -11,7 +11,7 @@ import ChatForm from './ChatForm.jsx';
 import useAuth from "../hooks/useAuth.js";
 import roomSlice from "../slices/rooms.js";
 import { actions } from '../slices/index.js';
-
+import { getCurrentChannel } from "../selectors/index.js";
 
 import '../styles/chat.css';
 

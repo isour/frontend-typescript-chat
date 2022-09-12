@@ -1,0 +1,16 @@
+.add-room {
+
+}
+
+.add-room__content {
+    margin-bottom: 10px;
+}
+
+.add-room__input {
+    width: 100%;
+}
+
+.add-room__footer {
+    display: flex;
+    justify-content: space-between;
+}

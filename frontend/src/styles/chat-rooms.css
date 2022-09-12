@@ -1,0 +1,17 @@
+.chat-rooms {
+
+}
+
+.chat-rooms__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-rooms__add {
+    font-size: 0.8rem;
+    padding: 2px 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}

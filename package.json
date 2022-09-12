@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/isour/frontend-project-lvl4#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^1.0.0"
+    "@hexlet/chat-server": "^1.0.0",
+    "classnames": "^2.3.1",
+    "socket.io-client": "^4.5.2"
   }
 }

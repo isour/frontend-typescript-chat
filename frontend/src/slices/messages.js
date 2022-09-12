@@ -14,8 +14,10 @@ const messagesSlice = createSlice({
       // console.log(state, '!!');
     //   console.log(state, payload, 'state');
     },
-    addRooms: (state) => {
-        
+    addMessage: (state, {payload}) => {
+      console.log(payload);
+      const { message } = payload;
+      state.messages.push(message);
     }
   //   increment: (state) => {
   //     state.value += 1;
