@@ -1,0 +1,42 @@
+.login-page {
+    max-width: 600px;
+    max-height: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.login-page__title {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.login-page__form {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.login-page__field {
+    margin-bottom: 16px;
+}
+
+.login-page__footer {
+    padding-top: 16px;
+}
+
+.login-page__register {
+    margin-left: 0.2em;
+}
+
+.login-page__submit {
+    margin-top: 10px;
+}

@@ -1,15 +1,11 @@
 import RoomAdd from './RoomAdd.jsx';
 import RoomRename from './RoomRename.jsx';
 import RoomRemove from './RoomRemove.jsx';
-// import Remove from './Remove.jsx';
-// import Rename from './Rename.jsx';
 
 const modals = {
   room_add: RoomAdd,
   room_remove: RoomRemove,
   room_rename: RoomRename,
-//   removing: Remove,
-//   renaming: Rename,
 };
 
 const renderModal = ({ modalInfo, hideModal, setItems }) => {

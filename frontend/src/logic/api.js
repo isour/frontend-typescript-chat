@@ -2,13 +2,6 @@ import { io } from 'socket.io-client';
 
 import { actions } from '../slices/index.js';
 
-const ackTimeout = 2000;
-
-const socketEvents = {
-  newChannel: 'newChannel',
-  removeChannel: 'removeChannel',
-};
-
 const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
   let isCalled = false;
 
@@ -16,7 +9,7 @@ const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
     if (isCalled) return;
     isCalled = true;
     onTimeout();
-  }, ackTimeout);
+  }, 2000);
 
   return (...args) => {
     if (isCalled) return;
@@ -36,7 +29,6 @@ const initSocketApi = (socket, store) => {
   });
 
   socket.on('newChannel', (payload) => {
-    console.log(payload);
     store.dispatch(actions.createRoom({ room: payload }));
     
   });
@@ -54,7 +46,6 @@ const initSocketApi = (socket, store) => {
     createChannel: createEmit('newChannel'),
     removeChannel: createEmit('removeChannel'),
     renameChannel: createEmit('renameChannel'),
-    // renameChannel: () => console.log('here'),
   };
 };
 

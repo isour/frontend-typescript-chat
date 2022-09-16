@@ -1,24 +1,24 @@
-import React, {useState, useContext} from "react";
-import { Button, Alert, Form  } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import { useNavigate, Link } from "react-router-dom";
+import classNames from 'classnames';
 import axios from "axios";
-import { Formik, Form as FormikForm, useFormik } from "formik";
-import * as Yup from "yup";
-
-import useAuth from "../hooks/useAuth.js";
+import { Formik, Field, ErrorMessage, Form as FormikForm } from "formik";
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import routes from "../routes";
+import getValidation from '../logic/validationRules.js';
+import useAuth from "../hooks/useAuth.js";
+import '../styles/login-page.css';
 
-
-const loginValidation = Yup.object().shape({
-    username: Yup.string().min(3, "Too short").max(40, "Please enter no more than 40 characters").required( "Please enter your first name" ),
-    password: Yup.string().min(5, "Too short").max(40, "Please enter no more than 40 characters").required("Please enter a password")
-});
-
+const loginValidation = getValidation(['username', 'password']);
 
 const Login = () => {
     const navigate = useNavigate();
-    const { user, logIn } = useAuth();
+    const { t } = useTranslation();
+    const { logIn } = useAuth();
+    const rollbar = useRollbar();
     
     const [authFailed, setAuthFailed] = useState(false);
 
@@ -36,14 +36,29 @@ const Login = () => {
                 token,
                 userName: values.username
             });
-            navigate(routes.chatPath());
+            navigate(routes.frontend.chatPath());
         } catch(error) {
-            console.log(error);
+            rollbar.error(error);
+            if (!error.isAxiosError) {
+                toast.error(t('errors.unknown'));
+                return;
+            }
+            
             setAuthFailed(true);
             setStatus(error.code);
             setSubmitting(false);
+        
+            toast.error(t('errors.network'));
         }
     };
+
+    const getInputClassNames = (formik, inputName) => {
+        return classNames(
+            { 'chat-form__input': true }, 
+            { 'form-text': true }, 
+            { 'form-text_error': (formik.touched && formik.errors[inputName]) }, 
+          )
+    }
     
     return (
         <Formik
@@ -52,24 +67,26 @@ const Login = () => {
             onSubmit={loginSubmit}
             >
             {(formik) => (
-                <div className="card-body p-5">
-                    <h1 className="text-center mb-4">Login</h1>
-                    <span>{user.userName}</span>
-                    <span>{user.token}</span>
-                    <FormikForm>
-                        <Form.Group className="mb-3" controlId="login-username">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="text" name="username" placeholder="Enter username" isInvalid={formik.errors.username} value={formik.values.username} onChange={formik.handleChange}/>
-                            <Form.Control.Feedback type="invalid">{formik.errors.username}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="login-password">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="password"  name="password" placeholder="Enter password" isInvalid={formik.errors.password} value={formik.values.password} onChange={formik.handleChange}/>
-                            <Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
-                        </Form.Group>
-                        {authFailed && <Alert variant="danger">{formik.status}</Alert>}
-                        <Button className="w-100 btn" type="submit" disabled={formik.isSubmitting}>Enter</Button>
+                <div className="login-page">
+                    <FormikForm className="login-page__form">
+                        <h1 className="login-page__title">{t('login.title')}</h1>
+                        <div className="login-page__field form-field">
+                            <label className="form-field__label" htmlFor="username">{t('login.username')}</label>
+                            <Field type="text" name="username" validate={formik.errors.username} value={formik.values.username} onChange={formik.handleChange} className={getInputClassNames(formik, 'username')}/>
+                            <ErrorMessage name="username" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
+                        </div>
+                        <div className="login-page__field form-field">
+                            <label className="form-field__label" htmlFor="username">{t('login.password')}</label>
+                            <Field type="text" name="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
+                            <ErrorMessage name="password" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
+                        </div>
+                        {authFailed && <div className="form-error login-page__error">{t('login.authFailed')}</div>}
+                        <button className="button login-page__submit" type="submit" disabled={formik.isSubmitting}>{t('login.submit')}</button>
                     </FormikForm>
+                    <div className="login-page__footer">
+                        {t('login.newToChat')}
+                        <Link className="login-page__register" to={routes.frontend.registerPath()}>{t('login.signup')}</Link>
+                    </div>
                 </div>
             )}
         </Formik>

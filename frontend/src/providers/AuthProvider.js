@@ -25,7 +25,12 @@ const AuthProvider = ({ children, config }) => {
     };
 
     const logOut = () => {
-
+      localStorage.removeItem('username');
+      localStorage.removeItem('token');
+      setCurrentUser({
+        userName: 'guest',
+        token: ''
+      });  
     };
 
     const getToken = () => {

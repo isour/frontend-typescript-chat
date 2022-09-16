@@ -1,8 +1,8 @@
-.room-rename__content {
+.room-remove__text {
     margin-bottom: 15px;
 }
 
-.room-rename__footer {
+.room-remove__footer {
     display: flex;
     justify-content: space-between;
 }

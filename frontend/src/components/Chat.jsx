@@ -1,36 +1,39 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import axios from "axios";
-import { createSlice } from '@reduxjs/toolkit';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import routes from "../routes";
-
 import ChatRooms from './ChatRooms.jsx';
 import ChatMessages from './ChatMessages.jsx';
 import ChatForm from './ChatForm.jsx';
 import useAuth from "../hooks/useAuth.js";
-import roomSlice from "../slices/rooms.js";
 import { actions } from '../slices/index.js';
-import { getCurrentChannel } from "../selectors/index.js";
 
 import '../styles/chat.css';
 
 const Chat = () => {
-    const auth = useAuth();
+    const {getToken} = useAuth();
     const dispatch = useDispatch();
-    // const userName = useContext(AuthContext);
+    const { t } = useTranslation();
+    const rollbar = useRollbar();
 
     useEffect(() => {
         const GetData = async () => {
             try {
-                const response = await axios.get(routes.backend.dataPath(), { headers: {"Authorization" : `Bearer ${auth.getToken()}`} });
-                // dispatch(createSlice.addRooms('qwe'));
-                // console.log(actions);
+                const response = await axios.get(routes.backend.dataPath(), { headers: {"Authorization" : `Bearer ${getToken()}`} });
                 dispatch(actions.setDefaultStateRooms(response.data));
                 dispatch(actions.setDefaultStateMessages(response.data));
-                // console.log(response.data, "DATA");
             } catch(error) {
-                console.log(error);
+                rollbar.error(error);
+                if (!error.isAxiosError) {
+                    toast.error(t('errors.unknown'));
+                    return;
+                }
+            
+                toast.error(t('errors.network'));
             }
         }
 

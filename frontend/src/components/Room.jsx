@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import classNames from 'classnames';
-import getModal, {renderModal as renderModal} from '../modals/index.js';
+import {renderModal} from '../modals/index.js';
 import { actions } from '../slices/index.js';
+import { useTranslation } from 'react-i18next';
 
 import '../styles/room.css';
 
 const Room = ({room}) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const { currentRoomId } = useSelector((state) => state.roomsInfo);
     const [active, setActive] = useState(false);
     const [modalInfo, setModalInfo] = useState({ type: null, item: null });
@@ -18,7 +20,7 @@ const Room = ({room}) => {
         dispatch(actions.setRoom(room))
     }
     
-    const openMenu = (room) => {
+    const openMenu = () => {
         setActive(true);
     }
 
@@ -35,8 +37,8 @@ const Room = ({room}) => {
     const getSubmenu = () => {
         return (
             <div className='submenu room__submenu'>
-                <button type="button" className='submenu__link' onClick={removeClick}>Удалить</button>
-                <button type="button" className='submenu__link' onClick={renameClick}>Переименовать</button>
+                <button type="button" className='submenu__link' onClick={removeClick}>{t('rooms.remove')}</button>
+                <button type="button" className='submenu__link' onClick={renameClick}>{t('rooms.rename')}</button>
             </div>
         )
     }
@@ -55,7 +57,7 @@ const Room = ({room}) => {
 
         return (
             <>
-                <button type="button" className='room__button' onClick={() => openMenu(room)}>Меню</button>
+                <button type="button" className='room__button' onClick={() => openMenu(room)}>{t('rooms.menu')}</button>
                 {(getSubmenu(room))}
             </>
         );

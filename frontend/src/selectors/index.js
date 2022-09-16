@@ -5,6 +5,5 @@ export const getCurrentRoom = ({roomsInfo}) => {
 
 export const getRoomsList = (state) => {
     const { rooms } = state.roomsInfo;
-    console.log(rooms)
     return rooms.map(({ name }) => name);
 }

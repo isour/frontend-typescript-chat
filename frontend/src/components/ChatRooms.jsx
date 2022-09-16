@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import '../styles/chat-rooms.css';
 import Room from './Room.jsx';
-import getModal, {renderModal as renderModal} from '../modals/index.js';
+import { renderModal } from '../modals/index.js';
 
-const ChatRooms = ({ className, children }) => {
+const ChatRooms = ({ className }) => {
+    const { t } = useTranslation();
     const [modalInfo, setModalInfo] = useState({ type: null, item: null });
     const hideModal = () => setModalInfo({ type: null, item: null });
     const showModal = (type, item = null) => setModalInfo({ type, item });
@@ -18,11 +20,10 @@ const ChatRooms = ({ className, children }) => {
     return (
         <div className = {`chat-rooms ${className}`}>
             <div className="chat-rooms__header">
-                <h2 className="chat-rooms__title">Каналы</h2>
-                <button type="button" className='chat-rooms__add' onClick={() => showModal( 'room_add' )}>Добавить канал</button>
+                <h2 className="chat-rooms__title">{t('rooms.rooms')}</h2>
+                <button type="button" className='chat-rooms__add' onClick={() => showModal( 'room_add' )}>{t('rooms.add')}</button>
             </div>
-            <div className="chat-rooms__list">{rooms ? roomsList() : 'Пусто'}</div>
-            {/* {roomsList} */}
+            <div className="chat-rooms__list">{rooms ? roomsList() : t('rooms.empty')}</div>
             {renderModal({ modalInfo, hideModal })}
         </div>
     );

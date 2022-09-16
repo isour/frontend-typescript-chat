@@ -1,0 +1,15 @@
+.chat-form {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    grid-gap: 16px;
+    position: relative;
+}
+
+.chat-form__error {
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    background-color: #fff;
+    bottom: 100%;
+    margin-bottom: 1px;
+}

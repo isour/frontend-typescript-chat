@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import React from 'react';
+import {useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-const ChatMessages = ({ className, children }) => {
+const ChatMessages = ({ className }) => {
+    const { t } = useTranslation();
     const { messages } = useSelector((state) => state.messagesInfo);
     const { currentRoomId } = useSelector((state) => state.roomsInfo);
 
@@ -10,12 +12,11 @@ const ChatMessages = ({ className, children }) => {
     }
     
     const getMessages = () => {
-        return Array.isArray(messages) && messages.length > 0 ? messagesList() : 'Пусто';
+        return Array.isArray(messages) && messages.length > 0 ? messagesList() : t('rooms.empty');
     }
     
     return (
         <div className = {`chat-messages ${className}`}>
-            <h2>ChatMessages</h2>
             {getMessages()}
         </div>
     );

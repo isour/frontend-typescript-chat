@@ -3,7 +3,7 @@
     grid-template-areas: "rooms messages" "rooms form";
     grid-template-columns: 300px 1fr;
     grid-template-rows: 1fr auto;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 65px);
     padding: 10px;
     max-width: 1024px;
     margin: 0 auto;
@@ -12,6 +12,7 @@
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
     gap: 10px;
+    width: 100%;
 }
 
 .chat-layout__rooms {
@@ -30,4 +31,10 @@
 
 .chat-layout__form {
     grid-area: form;
+    border-top: 1px solid #f1f1f1;
+    padding-top: 10px;
+    margin-left: -10px;
+    padding-left: 10px;
+    margin-right: -10px;
+    padding-right: 10px;
 }
