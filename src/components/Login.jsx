@@ -12,8 +12,6 @@ import getValidation from '../logic/validationRules.js';
 import useAuth from "../hooks/useAuth.js";
 import '../styles/login-page.css';
 
-const loginValidation = getValidation(['username', 'password']);
-
 const Login = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -62,7 +60,6 @@ const Login = () => {
     return (
         <Formik
             initialValues= {{ password: "", username: ""}}
-            validationSchema={loginValidation}
             onSubmit={loginSubmit}
             >
             {(formik) => (
