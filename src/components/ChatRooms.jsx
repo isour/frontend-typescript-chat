@@ -21,7 +21,7 @@ const ChatRooms = ({ className }) => {
         <div className = {`chat-rooms ${className}`}>
             <div className="chat-rooms__header">
                 <h2 className="chat-rooms__title">{t('rooms.rooms')}</h2>
-                <button type="button" className='chat-rooms__add' onClick={() => showModal( 'room_add' )}>{t('rooms.add')}</button>
+                <button type="button" className='chat-rooms__add button button_small' onClick={() => showModal( 'room_add' )}>+</button>
             </div>
             <div className="chat-rooms__list">{rooms ? roomsList() : t('rooms.empty')}</div>
             {renderModal({ modalInfo, hideModal })}
