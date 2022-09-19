@@ -1,11 +1,11 @@
 start-frontend:
-	npm start
+	npx react-scripts start -timeout=1000
 
 start-backend:
-	npx start-server
+	make -C server start
 
 start:
-	make start-backend & make start-frontend
+	npm start
 
 install:
 	npm ci
