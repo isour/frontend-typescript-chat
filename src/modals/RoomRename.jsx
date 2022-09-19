@@ -71,7 +71,8 @@ const RoomRename = (props) => {
             {(formik) => (
                 <FormikForm  className="room-rename">
                     <div className="room-rename__content">
-                        <Field type="text" name="room" placeholder="Enter room" validate={formik.errors.room} value={formik.values.room} onChange={formik.handleChange} className={getRoomClassNames(formik)} innerRef={inputEl}/>
+                        <label className="form-field__label" htmlFor="room">{t('modals.channelName')}</label>
+                        <Field type="text" name="room" id="room" placeholder="Enter room" validate={formik.errors.room} value={formik.values.room} onChange={formik.handleChange} className={getRoomClassNames(formik)} innerRef={inputEl}/>
                         <ErrorMessage name="room" render={msg => <div className="form-error room-rename__error">{t(msg)}</div>}/>
                     </div>
                     <div className="room-rename__footer">
