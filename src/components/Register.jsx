@@ -78,12 +78,12 @@ const Register = () => {
                             <ErrorMessage name="username" render={msg => <div className="form-error form-register__error">{t(msg)}</div>}/>
                         </div>
                         <div className="form-register__field">
-                            <label className="form-field__label" htmlFor="username">{t('signup.password')}</label>
+                            <label className="form-field__label" htmlFor="password">{t('signup.password')}</label>
                             <Field type="password" name="password" id="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
                             <ErrorMessage name="password" render={msg => <div className="form-error form-register__error">{t(msg)}</div>}/>
                         </div>
                         <div className="form-register__field">
-                            <label className="form-field__label" htmlFor="username">{t('signup.confirm')}</label>
+                            <label className="form-field__label" htmlFor="password2">{t('signup.confirm')}</label>
                             <Field type="password" name="password2" id="password2" validate={formik.errors.password2} value={formik.values.password2} onChange={formik.handleChange} className={getInputClassNames(formik, 'password2')}/>
                             <ErrorMessage name="password2" render={msg => <div className="form-error form-register__error">{t(msg)}</div>}/>
                         </div>

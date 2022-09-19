@@ -76,7 +76,7 @@ const Login = () => {
                             <ErrorMessage name="username" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
                         </div>
                         <div className="login-page__field form-field">
-                            <label className="form-field__label" htmlFor="username">{t('login.password')}</label>
+                            <label className="form-field__label" htmlFor="password">{t('login.password')}</label>
                             <Field type="text" name="password" id="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
                             <ErrorMessage name="password" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
                         </div>
