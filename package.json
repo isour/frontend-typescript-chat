@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
     "classnames": "^2.3.1",
+    "concurrently": "^7.4.0",
     "formik": "^2.2.9",
     "i18next": "^21.9.1",
     "leo-profanity": "^1.6.1",
@@ -30,7 +31,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "make start-backend && make start-frontend",
+    "start": "concurrently \"make start-frontend\" \"make start-backend\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
