@@ -1,5 +1,5 @@
 start-frontend:
-	cd frontend && npm start
+	npm start
 
 start-backend:
 	npx start-server
