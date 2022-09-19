@@ -50,8 +50,8 @@ const RoomRemove = (props) => {
                         <div className="room-remove__text">{t('modals.remove')} {room.name}?</div>
                     </div>
                     <div className="room-remove__footer">
-                        <button className="button button_secondary btn-danger" type="button" disabled={formik.isSubmitting} onClick={onHide}>{t('modals.cancel')}</button>
-                        <button className="button" type="submit" disabled={formik.isSubmitting}>{t('modals.remove')}</button>
+                        <button className="button button_secondary" type="button" disabled={formik.isSubmitting} onClick={onHide}>{t('modals.cancel')}</button>
+                        <button className="button btn-danger" type="submit" disabled={formik.isSubmitting}>{t('modals.remove')}</button>
                     </div>
                 </FormikForm>
             )}
