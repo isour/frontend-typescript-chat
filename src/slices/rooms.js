@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    room: []
+  room: [],
 };
-  
+
 const roomsSlice = createSlice({
   name: 'rooms',
   initialState,
@@ -13,22 +15,22 @@ const roomsSlice = createSlice({
       state.rooms = channels;
       state.currentRoomId = currentChannelId;
     },
-    createRoom: (state, {payload}) => {
+    createRoom: (state, { payload }) => {
       const { room } = payload;
       state.rooms.push(room);
     },
-    renameRoom: (state, {payload}) => {
+    renameRoom: (state, { payload }) => {
       const { room } = payload;
-      let currentRoom = state.rooms.find(({id}) => room.id === id);
+      const currentRoom = state.rooms.find(({ id }) => room.id === id);
       currentRoom.name = room.name;
     },
-    setRoom: (state, {payload}) => {
+    setRoom: (state, { payload }) => {
       const { id } = payload;
       state.currentRoomId = id;
     },
-    removeRoom: (state, {payload}) => {
+    removeRoom: (state, { payload }) => {
       const { room } = payload;
-      state.rooms = state.rooms.filter(({id}) => room.id !== id);
+      state.rooms = state.rooms.filter(({ id }) => room.id !== id);
       if (state.currentRoomId === room.id) {
         state.currentRoomId = 1;
       }

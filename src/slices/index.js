@@ -3,15 +3,13 @@ import roomsInfo, { actions as roomsInfoActions } from './rooms.js';
 import messagesInfo, { actions as messagesInfoActions } from './messages.js';
 
 const actions = {
-   ...roomsInfoActions,
-   ...messagesInfoActions
-}
+  ...roomsInfoActions,
+  ...messagesInfoActions,
+};
 
-export {
-   actions,
-}
+export { actions };
 
 export default combineReducers({
-   roomsInfo,
-   messagesInfo
+  roomsInfo,
+  messagesInfo,
 });

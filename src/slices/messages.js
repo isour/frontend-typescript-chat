@@ -1,9 +1,10 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    room: []
+  room: [],
 };
-  
+
 const messagesSlice = createSlice({
   name: 'messages',
   initialState,
@@ -12,10 +13,10 @@ const messagesSlice = createSlice({
       const { messages } = payload;
       state.messages = messages;
     },
-    addMessage: (state, {payload}) => {
+    addMessage: (state, { payload }) => {
       const { message } = payload;
       state.messages.push(message);
-    }
+    },
   },
 });
 

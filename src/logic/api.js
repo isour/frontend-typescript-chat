@@ -30,7 +30,6 @@ const initSocketApi = (socket, store) => {
 
   socket.on('newChannel', (payload) => {
     store.dispatch(actions.createRoom({ room: payload }));
-    
   });
 
   socket.on('removeChannel', (payload) => {
@@ -38,7 +37,7 @@ const initSocketApi = (socket, store) => {
   });
 
   socket.on('renameChannel', (payload) => {
-    store.dispatch(actions.renameRoom({room: payload}));
+    store.dispatch(actions.renameRoom({ room: payload }));
   });
 
   return {
@@ -50,9 +49,9 @@ const initSocketApi = (socket, store) => {
 };
 
 const api = (store) => {
-    const socket = io();
+  const socket = io();
 
-    return initSocketApi(socket, store);
-}
+  return initSocketApi(socket, store);
+};
 
 export default api;
