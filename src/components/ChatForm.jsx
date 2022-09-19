@@ -64,7 +64,7 @@ const ChatForm = ({ className }) => {
             >
             {(formik) => (
                 <FormikForm className = {`chat-form ${className}`}>
-                    <Field type="text" name="message" placeholder="Enter message" validate={formik.errors.message} value={formik.values.message} onChange={formik.handleChange} className={getInputClassNames(formik, 'message')} innerRef={messageEl}/>
+                    <Field type="text" name="message" placeholder={t('chat.newMessage')} aria-label={t('chat.newMessage')} validate={formik.errors.message} value={formik.values.message} onChange={formik.handleChange} className={getInputClassNames(formik, 'message')} innerRef={messageEl}/>
                     <button className="button chat-form__submit" type="submit" disabled={formik.isSubmitting}>{t('chat.send')}</button>
                     <ErrorMessage name="message" render={msg => <div className="form-error chat-form__error">{t(msg)}</div>}/>
                 </FormikForm>
