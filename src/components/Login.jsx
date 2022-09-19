@@ -29,7 +29,6 @@ const Login = () => {
         try {
             const response = await axios.post(routes.backend.loginPath(), values);
             const token = response.data.token;
-            setAuthFailed(false);
             setStatus("USER_LOGINED_IN");
             setSubmitting(false);
             logIn({
@@ -77,7 +76,7 @@ const Login = () => {
                         </div>
                         <div className="login-page__field form-field">
                             <label className="form-field__label" htmlFor="password">{t('login.password')}</label>
-                            <Field type="text" name="password" id="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
+                            <Field type="password" name="password" id="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
                             <ErrorMessage name="password" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
                         </div>
                         {authFailed && <div className="form-error login-page__error">{t('login.authFailed')}</div>}

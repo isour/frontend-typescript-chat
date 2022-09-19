@@ -30,7 +30,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start -timeout=1000\" \"make -C server start\"",
+    "start": "react-scripts start -timeout=1000 && make -C server start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
