@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 
 const validationRules = (type, vars) => {
-  /* eslint-disable no-const-assign */
-  const rooms = [];
+  /* eslint-disable functional/no-let */
+  let rooms = [];
   if (vars) {
     rooms = vars.rooms;
   }
