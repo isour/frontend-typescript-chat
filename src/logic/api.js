@@ -3,6 +3,7 @@ import { io } from 'socket.io-client';
 import { actions } from '../slices/index.js';
 
 const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
+  /* eslint-disable functional/no-let */
   let isCalled = false;
 
   const timerId = setTimeout(() => {
