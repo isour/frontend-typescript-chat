@@ -74,17 +74,17 @@ const Register = () => {
                         <h1 className="form-register__title">{t('signup.title')}</h1>
                         <div className="form-register__field">
                             <label className="form-field__label" htmlFor="username">{t('signup.username')}</label>
-                            <Field type="text" name="username" validate={formik.errors.username} value={formik.values.username} onChange={formik.handleChange} className={getInputClassNames(formik, 'username')} innerRef={nameEl}/>
+                            <Field type="text" name="username" id="username" validate={formik.errors.username} value={formik.values.username} onChange={formik.handleChange} className={getInputClassNames(formik, 'username')} innerRef={nameEl}/>
                             <ErrorMessage name="username" render={msg => <div className="form-error form-register__error">{t(msg)}</div>}/>
                         </div>
                         <div className="form-register__field">
                             <label className="form-field__label" htmlFor="username">{t('signup.password')}</label>
-                            <Field type="password" name="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
+                            <Field type="password" name="password" id="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
                             <ErrorMessage name="password" render={msg => <div className="form-error form-register__error">{t(msg)}</div>}/>
                         </div>
                         <div className="form-register__field">
                             <label className="form-field__label" htmlFor="username">{t('signup.confirm')}</label>
-                            <Field type="password" name="password2" validate={formik.errors.password2} value={formik.values.password2} onChange={formik.handleChange} className={getInputClassNames(formik, 'password2')}/>
+                            <Field type="password" name="password2" id="password2" validate={formik.errors.password2} value={formik.values.password2} onChange={formik.handleChange} className={getInputClassNames(formik, 'password2')}/>
                             <ErrorMessage name="password2" render={msg => <div className="form-error form-register__error">{t(msg)}</div>}/>
                         </div>
                         {registerFailed && <div className="form-error form-register__error">{t('signup.alreadyExists')}</div>}

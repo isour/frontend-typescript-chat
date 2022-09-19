@@ -57,7 +57,7 @@ const ru =
                 mustMatch: 'Пароли должны совпадать',
                 username: 'Имя пользователя',
                 usernameConstraints: 'От 3 до 20 символов',
-                usernameEnter: 'Введит имя пользователя',
+                usernameEnter: 'Введите имя пользователя',
                 password: 'Пароль',
                 confirm: 'Подтвердите пароль',
                 alreadyExists: 'Такой пользователь уже существует',

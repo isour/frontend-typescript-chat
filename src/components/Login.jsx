@@ -72,12 +72,12 @@ const Login = () => {
                         <h1 className="login-page__title">{t('login.title')}</h1>
                         <div className="login-page__field form-field">
                             <label className="form-field__label" htmlFor="username">{t('login.username')}</label>
-                            <Field type="text" name="username" validate={formik.errors.username} value={formik.values.username} onChange={formik.handleChange} className={getInputClassNames(formik, 'username')}/>
+                            <Field type="text" name="username" id="username" validate={formik.errors.username} value={formik.values.username} onChange={formik.handleChange} className={getInputClassNames(formik, 'username')}/>
                             <ErrorMessage name="username" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
                         </div>
                         <div className="login-page__field form-field">
                             <label className="form-field__label" htmlFor="username">{t('login.password')}</label>
-                            <Field type="text" name="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
+                            <Field type="text" name="password" id="password" validate={formik.errors.password} value={formik.values.password} onChange={formik.handleChange} className={getInputClassNames(formik, 'password')}/>
                             <ErrorMessage name="password" render={msg => <div className="form-error login-page__error">{t(msg)}</div>}/>
                         </div>
                         {authFailed && <div className="form-error login-page__error">{t('login.authFailed')}</div>}
