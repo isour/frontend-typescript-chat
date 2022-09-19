@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5001",
   "dependencies": {
-    "@hexlet/chat-server": "^1.0.0",
+    "@hexlet/chat-server": "^1.1.6",
     "@reduxjs/toolkit": "^1.8.3",
     "@rollbar/react": "^0.11.1",
     "@testing-library/jest-dom": "^5.16.4",

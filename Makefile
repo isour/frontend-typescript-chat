@@ -2,7 +2,7 @@ start-frontend:
 	npx react-scripts start -timeout=1000
 
 start-backend:
-	make -C server start
+	npx start-server
 
 start:
 	npm start
