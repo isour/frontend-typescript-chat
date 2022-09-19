@@ -73,6 +73,7 @@ const RoomAdd = (props) => {
             {(formik) => (
                 <FormikForm className="add-room">
                     <div className="add-room__content">
+                        <label className="form-field__label" htmlFor="room">{t('modals.channelName')}</label>
                         <Field type="text" name="room" validate={formik.errors.room} value={formik.values.room} onChange={formik.handleChange} className={getRoomClassNames(formik)} innerRef={inputEl}/>
                         <ErrorMessage name="room" render={msg => <div className="form-error add-room__error">{t(msg)}</div>}/>
                     </div>
