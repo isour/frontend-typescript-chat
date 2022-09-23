@@ -1,11 +1,11 @@
 const ru = {
   translation: {
-    rooms: {
+    channels: {
       add: 'Добавить канал',
       menu: 'Управление каналом',
       remove: 'Удалить',
       rename: 'Переименовать',
-      rooms: 'Каналы',
+      channels: 'Каналы',
       created: 'Канал создан',
       renamed: 'Канал переименован',
       removed: 'Канал удалён',
@@ -40,8 +40,8 @@ const ru = {
     logout: 'Выйти',
     chat: {
       send: 'Отправить',
-      min: 'От 3 до 20 символов',
-      max: 'От 3 до 20 символов',
+      min: 'От 3 до 40 символов',
+      max: 'От 3 до 40 символов',
       required: 'Пожалуйста, введите сообщение',
       messageCount_zero: 'сообщений',
       messageCount_one: 'сообщение',

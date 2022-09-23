@@ -1,8 +1,8 @@
-.room-rename__content {
+.channel-rename__content {
     margin-bottom: 15px;
 }
 
-.room-rename__footer {
+.channel-rename__footer {
     display: flex;
     justify-content: space-between;
 }

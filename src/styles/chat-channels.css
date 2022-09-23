@@ -1,14 +1,14 @@
-.chat-rooms {
+.chat-channels {
 
 }
 
-.chat-rooms__header {
+.chat-channels__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.chat-rooms__add {
+.chat-channels__add {
     font-size: 0.8rem;
     padding: 2px 5px;
     cursor: pointer;

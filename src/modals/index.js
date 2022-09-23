@@ -1,13 +1,13 @@
 import React from 'react';
 
-import RoomAdd from './RoomAdd.jsx';
-import RoomRename from './RoomRename.jsx';
-import RoomRemove from './RoomRemove.jsx';
+import ChannelAdd from './ChannelAdd.jsx';
+import ChannelRename from './ChannelRename.jsx';
+import ChannelRemove from './ChannelRemove.jsx';
 
 const modals = {
-  room_add: RoomAdd,
-  room_remove: RoomRemove,
-  room_rename: RoomRename,
+  channel_add: ChannelAdd,
+  channel_remove: ChannelRemove,
+  channel_rename: ChannelRename,
 };
 
 const getModal = (modalName) => modals[modalName];

@@ -1,11 +1,11 @@
 const en = {
   translation: {
-    rooms: {
+    channels: {
       add: 'Add channel',
       menu: 'Channel control',
       remove: 'Remove',
       rename: 'Rename',
-      rooms: 'rooms',
+      channels: 'channels',
       created: 'Channel created',
       renamed: 'Channel renamed',
       removed: 'Channel removed',
@@ -33,15 +33,15 @@ const en = {
       confirmation: 'Are you sure?',
       confirm: 'Confirm',
       rename: 'Rename channel',
-      channelName: 'Chanel name',
+      channelName: 'Channel name',
       editChannelName: 'New channel name',
     },
     hexletChat: 'Hexlet Chat',
     logout: 'Log out',
     chat: {
       send: 'Send',
-      min: 'Must be 3 to 20 characters',
-      max: 'Must be 3 to 20 characters',
+      min: 'Must be 3 to 40 characters',
+      max: 'Must be 3 to 40 characters',
       messageCount: 'message',
       messageCount_plural: 'messages',
     },

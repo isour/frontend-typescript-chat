@@ -31,3 +31,5 @@ rules:
   no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
   testing-library/no-debug: 0
   react/jsx-filename-extension: [1, { 'extensions': ['.js', '.jsx'] }]
+  linebreak-style: 0
+  react/function-component-definition: 0

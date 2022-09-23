@@ -1,11 +1,11 @@
-export const getCurrentRoom = ({ roomsInfo }) => {
-  const { channels, currentRoomId } = roomsInfo;
+export const getCurrentChannel = ({ channelsInfo }) => {
+  const { channels, currentChannelId } = channelsInfo;
   return channels
-    ? channels.find((channel) => channel.id === currentRoomId)
+    ? channels.find((channel) => channel.id === currentChannelId)
     : 0;
 };
 
-export const getRoomsList = (state) => {
-  const { rooms } = state.roomsInfo;
-  return rooms.map(({ name }) => name);
+export const getChannelsList = (state) => {
+  const { channels } = state.channelsInfo;
+  return channels.map(({ name }) => name);
 };

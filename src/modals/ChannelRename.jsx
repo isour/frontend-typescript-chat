@@ -3,42 +3,42 @@ import {
   Formik, Field, ErrorMessage, Form as FormikForm,
 } from 'formik';
 import { Modal } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 import { useRollbar } from '@rollbar/react';
 
-import { actions } from '../slices/index.js';
-import getValidation from '../logic/validationRules.js';
 import useApi from '../hooks/useApi.js';
-import '../styles/room-add.css';
-import { getRoomsList } from '../selectors/index.js';
+import getValidation from '../logic/validationRules.js';
+import '../styles/channel-rename.css';
+import { getChannelsList } from '../selectors/index.js';
 
-const roomValidation = (rooms) => getValidation(['room'], { rooms });
+const channelValidation = (channels) => getValidation(['channel'], { channels });
 
-function RoomAdd(props) {
-  const dispatch = useDispatch();
+function ChannelRename(props) {
   const api = useApi();
   const { onHide } = props;
-  const rooms = useSelector(getRoomsList);
+  const currentModal = useSelector((state) => state.modal);
+  const currentChannel = currentModal.item;
+  const channels = useSelector(getChannelsList);
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  const createRoom = (values, { setStatus, setSubmitting }) => {
+  const createChannel = (values, { setStatus, setSubmitting }) => {
     setStatus();
     setSubmitting(true);
-    const room = {
-      name: leoProfanity.clean(values.room),
+    const newChannel = {
+      id: currentChannel.id,
+      name: leoProfanity.clean(values.channel),
     };
-    api.createChannel(
-      room,
-      (result) => {
+    api.renameChannel(
+      newChannel,
+      () => {
         setSubmitting(false);
         onHide();
-        dispatch(actions.setRoom(result[0].data));
-        toast.success(t('rooms.created'));
+        toast.success(t('channels.renamed'));
       },
       (error) => {
         rollbar.error(error);
@@ -53,47 +53,50 @@ function RoomAdd(props) {
     inputEl.current.focus();
   }, []);
 
-  const getRoomClassNames = (formik) => classNames(
-    { 'RoomAdd-room__content': true },
+  const getChannelClassNames = (formik) => classNames(
+    { 'channel-rename__content': true },
     { 'form-text': true },
-    { 'form-text_error': formik.touched && formik.errors },
+    { 'form-text_error': !!formik.touched && Object.keys(formik.errors).length !== 0 },
   );
 
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>{t('modals.add')}</Modal.Title>
+        <Modal.Title>{t('modals.rename')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
-          initialValues={{ room: '' }}
-          validationSchema={() => roomValidation(rooms)}
-          onSubmit={createRoom}
+          initialValues={{ channel: currentChannel.name }}
+          validationSchema={() => channelValidation(channels)}
+          onSubmit={createChannel}
         >
           {(formik) => (
-            <FormikForm className="add-room">
-              <div className="add-room__content">
-                <label className="form-field__label" htmlFor="room">
+            <FormikForm className="channel-rename">
+              <div className="channel-rename__content">
+                <label className="form-field__label" htmlFor="channel">
                   {t('modals.channelName')}
                 </label>
                 <Field
                   type="text"
-                  name="room"
-                  id="room"
-                  validate={formik.errors.room}
-                  value={formik.values.room}
+                  name="channel"
+                  id="channel"
+                  placeholder="Enter channel"
+                  validate={formik.errors.channel}
+                  value={formik.values.channel}
                   onChange={formik.handleChange}
-                  className={getRoomClassNames(formik)}
+                  className={getChannelClassNames(formik)}
                   innerRef={inputEl}
                 />
                 <ErrorMessage
-                  name="room"
+                  name="channel"
                   render={(msg) => (
-                    <div className="form-error add-room__error">{t(msg)}</div>
+                    <div className="form-error channel-rename__error">
+                      {t(msg)}
+                    </div>
                   )}
                 />
               </div>
-              <div className="add-room__footer">
+              <div className="channel-rename__footer">
                 <button
                   className="button button_secondary"
                   type="button"
@@ -118,4 +121,4 @@ function RoomAdd(props) {
   );
 }
 
-export default RoomAdd;
+export default ChannelRename;

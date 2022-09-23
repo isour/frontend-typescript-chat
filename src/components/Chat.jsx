@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
 
 import routes from '../routes';
-import ChatRooms from './ChatRooms.jsx';
+import ChatChannels from './ChatChannels.jsx';
 import ChatMessages from './ChatMessages.jsx';
 import ChatForm from './ChatForm.jsx';
 import useAuth from '../hooks/useAuth.js';
@@ -26,7 +26,7 @@ function Chat() {
         const response = await axios.get(routes.backend.dataPath(), {
           headers: { Authorization: `Bearer ${getToken()}` },
         });
-        dispatch(actions.setDefaultStateRooms(response.data));
+        dispatch(actions.setDefaultStateChannels(response.data));
         dispatch(actions.setDefaultStateMessages(response.data));
       } catch (error) {
         rollbar.error(error);
@@ -44,7 +44,7 @@ function Chat() {
 
   return (
     <div className="chat-layout">
-      <ChatRooms className="chat-layout__rooms" />
+      <ChatChannels className="chat-layout__channels" />
       <ChatMessages className="chat-layout__messages" />
       <ChatForm className="chat-layout__form" />
     </div>

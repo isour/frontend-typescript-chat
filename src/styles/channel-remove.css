@@ -1,8 +1,8 @@
-.room-remove__text {
+.channel-remove__text {
     margin-bottom: 15px;
 }
 
-.room-remove__footer {
+.channel-remove__footer {
     display: flex;
     justify-content: space-between;
 }

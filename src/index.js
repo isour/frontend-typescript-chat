@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider as RollbarProvider } from '@rollbar/react';
+import { io } from 'socket.io-client';
 import reportWebVitals from './reportWebVitals';
 
 import App from './components/App.jsx';
@@ -13,37 +14,42 @@ import I18Provider from './providers/i18nProvider.js';
 import AuthProvider from './providers/AuthProvider.js';
 
 const isProd = process.env.NODE_ENV === 'production';
-
-const store = configureStore({ reducer: rootReducer });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const api = apiInit(store);
+const initApp = () => {
+  const store = configureStore({ reducer: rootReducer });
 
-const rollbarConfig = {
-  enabled: isProd,
-  accessToken: process.env.ROLLBAR_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    environment: 'production',
-  },
+  const socket = io();
+  const api = apiInit(socket, store);
+
+  const rollbarConfig = {
+    enabled: isProd,
+    accessToken: process.env.ROLLBAR_TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    payload: {
+      environment: 'production',
+    },
+  };
+
+  return (
+    <React.StrictMode>
+      <RollbarProvider config={rollbarConfig}>
+        <Provider store={store}>
+          <AuthProvider>
+            <I18Provider>
+              <ApiContext.Provider value={api}>
+                <App />
+              </ApiContext.Provider>
+            </I18Provider>
+          </AuthProvider>
+        </Provider>
+      </RollbarProvider>
+    </React.StrictMode>
+  );
 };
 
-root.render(
-  <React.StrictMode>
-    <RollbarProvider config={rollbarConfig}>
-      <Provider store={store}>
-        <AuthProvider>
-          <I18Provider>
-            <ApiContext.Provider value={api}>
-              <App />
-            </ApiContext.Provider>
-          </I18Provider>
-        </AuthProvider>
-      </Provider>
-    </RollbarProvider>
-  </React.StrictMode>,
-);
+root.render(initApp());
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

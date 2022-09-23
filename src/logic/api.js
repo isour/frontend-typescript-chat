@@ -1,5 +1,3 @@
-import { io } from 'socket.io-client';
-
 import { actions } from '../slices/index.js';
 
 const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
@@ -30,15 +28,15 @@ const initSocketApi = (socket, store) => {
   });
 
   socket.on('newChannel', (payload) => {
-    store.dispatch(actions.createRoom({ room: payload }));
+    store.dispatch(actions.createChannel({ channel: payload }));
   });
 
   socket.on('removeChannel', (payload) => {
-    store.dispatch(actions.removeRoom({ room: payload }));
+    store.dispatch(actions.removeChannel({ channel: payload }));
   });
 
   socket.on('renameChannel', (payload) => {
-    store.dispatch(actions.renameRoom({ room: payload }));
+    store.dispatch(actions.renameChannel({ channel: payload }));
   });
 
   return {
@@ -49,10 +47,6 @@ const initSocketApi = (socket, store) => {
   };
 };
 
-const api = (store) => {
-  const socket = io();
-
-  return initSocketApi(socket, store);
-};
+const api = (socket, store) => initSocketApi(socket, store);
 
 export default api;

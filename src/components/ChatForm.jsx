@@ -19,7 +19,7 @@ function ChatForm({ className }) {
   const { t } = useTranslation();
   const api = useApi();
   const { user } = useAuth();
-  const { currentRoomId } = useSelector((state) => state.roomsInfo);
+  const { currentChannelId } = useSelector((state) => state.channelsInfo);
   const rollbar = useRollbar();
 
   const handleSubmit = (values, { setStatus, setSubmitting, resetForm }) => {
@@ -27,7 +27,7 @@ function ChatForm({ className }) {
     setSubmitting(true);
     const message = {
       message: leoProfanity.clean(values.message),
-      roomId: currentRoomId,
+      channelId: currentChannelId,
       username: user.userName,
     };
     api.sendMessage(

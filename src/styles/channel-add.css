@@ -1,16 +1,16 @@
-.add-room {
+.add-channel {
 
 }
 
-.add-room__content {
+.add-channel__content {
     margin-bottom: 10px;
 }
 
-.add-room__input {
+.add-channel__input {
     width: 100%;
 }
 
-.add-room__footer {
+.add-channel__footer {
     display: flex;
     justify-content: space-between;
 }

@@ -1,4 +1,4 @@
-.room {
+.channel {
     padding: 2px 0;
     display: flex;
     align-items: center;
@@ -6,24 +6,28 @@
     position: relative;
 }
 
-.room_current .room__content {
+.channel_current .channel__content {
     font-weight: bold;
 }
 
-.room_removable {
+.channel_removable {
     
 }
 
-.room__content {
+.channel__content {
     padding-right: 10px;
     flex: 1 1 auto;
     cursor: pointer;
     background: none;
     border: none;
     text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
+    overflow: hidden;
 }
 
-.room__button {
+.channel__button {
     font-size: 0.8rem;
     background-color: #0f5ed2;
     border: none;
@@ -31,16 +35,17 @@
     padding-bottom: 3px;
     color: #fff;
     border-radius: 4px;
+    flex: 0 0 145px;
 }
 
-.room__submenu {
+.channel__submenu {
     position: absolute;
     right: 0;
     top: 100%;
     display: none;
 }
 
-.room_active .room__submenu {
+.channel_active .channel__submenu {
     display: flex;
 }
 

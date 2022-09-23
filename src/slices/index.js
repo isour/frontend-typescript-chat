@@ -1,15 +1,18 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import roomsInfo, { actions as roomsInfoActions } from './rooms.js';
+import channelsInfo, { actions as channelsInfoActions } from './channels.js';
 import messagesInfo, { actions as messagesInfoActions } from './messages.js';
+import modal, { actions as modalActions } from './modals.js';
 
 const actions = {
-  ...roomsInfoActions,
+  ...channelsInfoActions,
   ...messagesInfoActions,
+  ...modalActions,
 };
 
 export { actions };
 
 export default combineReducers({
-  roomsInfo,
+  channelsInfo,
   messagesInfo,
+  modal,
 });

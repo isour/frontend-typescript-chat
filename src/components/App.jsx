@@ -11,6 +11,7 @@ import Chat from './Chat.jsx';
 import NotFound from './NotFound.jsx';
 import Register from './Register.jsx';
 import Header from './Header.jsx';
+import Modal from './Modal.jsx';
 import useAuth from '../hooks/useAuth.js';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/App.scss';
@@ -35,6 +36,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <Modal className="chat-layout__modal" />
       <ToastContainer />
     </>
   );

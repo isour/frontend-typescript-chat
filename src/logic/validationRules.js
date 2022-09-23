@@ -2,15 +2,15 @@ import * as Yup from 'yup';
 
 const validationRules = (type, vars) => {
   /* eslint-disable functional/no-let */
-  let rooms = [];
+  let channels = [];
   if (vars) {
-    rooms = vars.rooms;
+    channels = vars.channels;
   }
 
   const yupRules = {
     message: Yup.string()
       .min(3, 'chat.min')
-      .max(20, 'chat.max')
+      .max(40, 'chat.max')
       .required('chat.required'),
     username: Yup.string()
       .min(3, 'signup.usernameConstraints')
@@ -24,11 +24,11 @@ const validationRules = (type, vars) => {
       'signup.mustMatch',
       (value, context) => value === context.parent.password,
     ),
-    room: Yup.string()
+    channel: Yup.string()
       .min(3, 'modals.min')
       .max(20, 'modals.max')
       .required('modals.required')
-      .notOneOf(rooms, 'modals.uniq'),
+      .notOneOf(channels, 'modals.uniq'),
   };
 
   return yupRules[type];

@@ -1,33 +1,35 @@
 import React from 'react';
 import { Formik, Form as FormikForm } from 'formik';
+import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
 
 import useApi from '../hooks/useApi.js';
-import '../styles/room-remove.css';
+import '../styles/channel-remove.css';
 
-function RoomRemove(props) {
+function ChannelRemove(props) {
   const api = useApi();
-  const { onHide, modalInfo } = props;
-  const room = modalInfo.item;
+  const { onHide } = props;
+  const currentModal = useSelector((state) => state.modal);
+  const currentChannel = currentModal.item;
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  const createRoom = (values, { setStatus, setSubmitting }) => {
+  const createChannel = (values, { setStatus, setSubmitting }) => {
     setStatus();
     setSubmitting(true);
-    const newRoom = {
-      id: room.id,
-      name: values.room,
+    const newChannel = {
+      id: currentChannel.id,
+      name: values.channel,
     };
     api.removeChannel(
-      newRoom,
+      newChannel,
       () => {
         setSubmitting(false);
         onHide();
-        toast.success(t('rooms.removed'));
+        toast.success(t('channels.removed'));
       },
       (error) => {
         rollbar.error(error);
@@ -42,18 +44,18 @@ function RoomRemove(props) {
         <Modal.Title>{t('modals.remove')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Formik initialValues={{ room: room.name }} onSubmit={createRoom}>
+        <Formik initialValues={{ channel: currentChannel.name }} onSubmit={createChannel}>
           {(formik) => (
-            <FormikForm className="room-remove">
-              <div className="room-remove__content">
-                <div className="room-remove__text">
+            <FormikForm className="channel-remove">
+              <div className="channel-remove__content">
+                <div className="channel-remove__text">
                   {t('modals.remove')}
                   {' '}
-                  {room.name}
+                  {formik.channel}
                   ?
                 </div>
               </div>
-              <div className="room-remove__footer">
+              <div className="channel-remove__footer">
                 <button
                   className="button button_secondary"
                   type="button"
@@ -78,4 +80,4 @@ function RoomRemove(props) {
   );
 }
 
-export default RoomRemove;
+export default ChannelRemove;

@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  room: [],
+  channel: [],
 };
 
 const messagesSlice = createSlice({
