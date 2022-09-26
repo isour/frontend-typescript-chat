@@ -53,12 +53,13 @@ function Login() {
   const getInputClassNames = (formik, inputName) => classNames(
     { 'chat-form__input': true },
     { 'form-text': true },
-    { 'form-text_error': formik.touched && formik.errors[inputName] },
+    { 'form-text_error': formik.errors[inputName] },
   );
 
   return (
     <Formik
       initialValues={{ password: '', username: '' }}
+      validateOnBlur={false}
       onSubmit={loginSubmit}
     >
       {(formik) => (

@@ -56,7 +56,7 @@ function ChannelRename(props) {
   const getChannelClassNames = (formik) => classNames(
     { 'channel-rename__content': true },
     { 'form-text': true },
-    { 'form-text_error': !!formik.touched && Object.keys(formik.errors).length !== 0 },
+    { 'form-text_error': Object.keys(formik.errors).length !== 0 },
   );
 
   return (
@@ -68,6 +68,7 @@ function ChannelRename(props) {
         <Formik
           initialValues={{ channel: currentChannel.name }}
           validationSchema={() => channelValidation(channels)}
+          validateOnBlur={false}
           onSubmit={createChannel}
         >
           {(formik) => (
@@ -84,7 +85,7 @@ function ChannelRename(props) {
                   validate={formik.errors.channel}
                   value={formik.values.channel}
                   onChange={formik.handleChange}
-                  className={getChannelClassNames(formik)}
+                  className={getChannelClassNames(formik, 'channel')}
                   innerRef={inputEl}
                 />
                 <ErrorMessage

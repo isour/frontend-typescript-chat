@@ -56,7 +56,7 @@ function ChannelAdd(props) {
   const getChannelClassNames = (formik) => classNames(
     { 'ChannelAdd-channel__content': true },
     { 'form-text': true },
-    { 'form-text_error': !!formik.touched && Object.keys(formik.errors).length !== 0 },
+    { 'form-text_error': Object.keys(formik.errors).length !== 0 },
   );
 
   return (
@@ -68,6 +68,7 @@ function ChannelAdd(props) {
         <Formik
           initialValues={{ channel: '' }}
           validationSchema={() => channelValidation(channels)}
+          validateOnBlur={false}
           onSubmit={createChannel}
         >
           {(formik) => (
@@ -83,7 +84,7 @@ function ChannelAdd(props) {
                   validate={formik.errors.channel}
                   value={formik.values.channel}
                   onChange={formik.handleChange}
-                  className={getChannelClassNames(formik)}
+                  className={getChannelClassNames(formik, 'channel')}
                   innerRef={inputEl}
                 />
                 <ErrorMessage

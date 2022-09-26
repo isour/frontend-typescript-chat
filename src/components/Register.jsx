@@ -58,16 +58,14 @@ function Register() {
   const getInputClassNames = (formik, inputName) => classNames(
     { 'form-register__input': true },
     { 'form-text': true },
-    {
-      'form-text_error':
-          (formik.touched && formik.errors[inputName]) || registerFailed,
-    },
+    { 'form-text_error': formik.errors[inputName] || registerFailed },
   );
 
   return (
     <Formik
       initialValues={{ password: '', password2: '', username: '' }}
       validationSchema={registerValidation}
+      validateOnBlur={false}
       onSubmit={handleSubmit}
     >
       {(formik) => (

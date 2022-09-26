@@ -8,23 +8,28 @@ const validationRules = (type, vars) => {
   }
 
   const yupRules = {
-    message: Yup.string()
-      .min(3, 'chat.min')
-      .max(40, 'chat.max')
+    message: Yup
+      .string()
+      .trim()
       .required('chat.required'),
-    username: Yup.string()
+    username: Yup
+      .string()
       .min(3, 'signup.usernameConstraints')
       .max(40, 'signup.usernameConstraints')
       .required('signup.usernameEnter'),
-    password: Yup.string()
+    password: Yup
+      .string()
       .min(5, 'signup.passMin')
       .required('signup.passRequired'),
-    password2: Yup.string().test(
-      'signup.confirmPassword',
-      'signup.mustMatch',
-      (value, context) => value === context.parent.password,
-    ),
-    channel: Yup.string()
+    password2: Yup
+      .string()
+      .test(
+        'signup.confirmPassword',
+        'signup.mustMatch',
+        (value, context) => value === context.parent.password,
+      ),
+    channel: Yup
+      .string()
       .min(3, 'modals.min')
       .max(20, 'modals.max')
       .required('modals.required')
