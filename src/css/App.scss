@@ -44,6 +44,12 @@ body {
     border: none;
     color: #fff;
     border-radius: 4px;
+    transition-duration: 5s;
+    transition-property: all;
+
+    &[disabled] {
+        opacity: 0.5;
+    }
 }
 
 .button_secondary {
