@@ -16,12 +16,12 @@ import useAuth from '../hooks/useAuth.js';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/App.scss';
 
-function AuthRedirect() {
+const AuthRedirect = () => {
   const { isGuest } = useAuth();
   return isGuest() ? <Navigate to="/login" replace /> : <Chat />;
-}
+};
 
-function App() {
+const App = () => {
   const ruDict = leoProfanity.getDictionary('ru');
   leoProfanity.add(ruDict);
 
@@ -40,6 +40,6 @@ function App() {
       <ToastContainer />
     </>
   );
-}
+};
 
 export default App;
