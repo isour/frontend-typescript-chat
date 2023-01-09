@@ -1,4 +1,4 @@
-import { actions } from '../slices/index.js';
+import { actions } from '../store/index.js';
 
 const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
   /* eslint-disable functional/no-let */
@@ -24,19 +24,19 @@ const initSocketApi = (socket, store) => {
   };
 
   socket.on('newMessage', (payload) => {
-    store.dispatch(actions.addMessage({ message: payload }));
+    store.dispatch(actions.addMessage(payload));
   });
 
   socket.on('newChannel', (payload) => {
-    store.dispatch(actions.createChannel({ channel: payload }));
+    store.dispatch(actions.createChannel(payload));
   });
 
   socket.on('removeChannel', (payload) => {
-    store.dispatch(actions.removeChannel({ channel: payload }));
+    store.dispatch(actions.removeChannel(payload));
   });
 
   socket.on('renameChannel', (payload) => {
-    store.dispatch(actions.renameChannel({ channel: payload }));
+    store.dispatch(actions.renameChannel(payload));
   });
 
   return {

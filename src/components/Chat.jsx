@@ -10,35 +10,34 @@ import ChatChannels from './ChatChannels.jsx';
 import ChatMessages from './ChatMessages.jsx';
 import ChatForm from './ChatForm.jsx';
 import useAuth from '../hooks/useAuth.js';
-import { actions } from '../slices/index.js';
+import { actions } from '../store/index.js';
 
 import '../styles/chat.css';
 
-function Chat() {
+const Chat = () => {
   const { getToken } = useAuth();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  useEffect(() => {
-    const GetData = async () => {
-      try {
-        const response = await axios.get(routes.backend.dataPath(), {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        });
-        dispatch(actions.setDefaultStateChannels(response.data));
-        dispatch(actions.setDefaultStateMessages(response.data));
-      } catch (error) {
-        rollbar.error(error);
-        if (!error.isAxiosError) {
-          toast.error(t('errors.unknown'));
-          return;
-        }
-
-        toast.error(t('errors.network'));
+  const GetData = async () => {
+    try {
+      const response = await axios.get(routes.backend.dataPath(), {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+      dispatch(actions.setDefaultStateChannels(response.data));
+    } catch (error) {
+      rollbar.error(error);
+      if (!error.isAxiosError) {
+        toast.error(t('errors.unknown'));
+        return;
       }
-    };
 
+      toast.error(t('errors.network'));
+    }
+  };
+
+  useEffect(() => {
     GetData();
   });
 
@@ -49,6 +48,6 @@ function Chat() {
       <ChatForm className="chat-layout__form" />
     </div>
   );
-}
+};
 
 export default Chat;

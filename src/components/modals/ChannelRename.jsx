@@ -3,42 +3,42 @@ import {
   Formik, Field, ErrorMessage, Form as FormikForm,
 } from 'formik';
 import { Modal } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
 import { useRollbar } from '@rollbar/react';
 
-import { actions } from '../slices/index.js';
-import getValidation from '../logic/validationRules.js';
-import useApi from '../hooks/useApi.js';
-import '../styles/channel-add.css';
-import { getChannelsList } from '../selectors/index.js';
+import useApi from '../../hooks/useApi.js';
+import getValidation from '../../logic/validationRules.js';
+import '../../styles/channel-rename.css';
+import getChannelsNames from '../../selectors/index.js';
 
 const channelValidation = (channels) => getValidation(['channel'], { channels });
 
-function ChannelAdd(props) {
-  const dispatch = useDispatch();
+function ChannelRename(props) {
   const api = useApi();
   const { onHide } = props;
-  const channels = useSelector(getChannelsList);
+  const currentModal = useSelector((state) => state.modal);
+  const currentChannel = currentModal.item;
+  const channels = getChannelsNames();
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
   const createChannel = (values, { setStatus, setSubmitting }) => {
     setStatus();
     setSubmitting(true);
-    const channel = {
+    const newChannel = {
+      id: currentChannel.id,
       name: leoProfanity.clean(values.channel),
     };
-    api.createChannel(
-      channel,
-      (result) => {
+    api.renameChannel(
+      newChannel,
+      () => {
         setSubmitting(false);
         onHide();
-        dispatch(actions.setChannel(result[0].data));
-        toast.success(t('channels.created'));
+        toast.success(t('channels.renamed'));
       },
       (error) => {
         rollbar.error(error);
@@ -54,7 +54,7 @@ function ChannelAdd(props) {
   }, []);
 
   const getChannelClassNames = (formik) => classNames(
-    { 'ChannelAdd-channel__content': true },
+    { 'channel-rename__content': true },
     { 'form-text': true },
     { 'form-text_error': Object.keys(formik.errors).length !== 0 },
   );
@@ -62,18 +62,18 @@ function ChannelAdd(props) {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>{t('modals.add')}</Modal.Title>
+        <Modal.Title>{t('modals.rename')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
-          initialValues={{ channel: '' }}
+          initialValues={{ channel: currentChannel.name }}
           validationSchema={() => channelValidation(channels)}
           validateOnBlur={false}
           onSubmit={createChannel}
         >
           {(formik) => (
-            <FormikForm className="add-channel">
-              <div className="add-channel__content">
+            <FormikForm className="channel-rename">
+              <div className="channel-rename__content">
                 <label className="form-field__label" htmlFor="channel">
                   {t('modals.channelName')}
                 </label>
@@ -81,6 +81,7 @@ function ChannelAdd(props) {
                   type="text"
                   name="channel"
                   id="channel"
+                  placeholder="Enter channel"
                   validate={formik.errors.channel}
                   value={formik.values.channel}
                   onChange={formik.handleChange}
@@ -90,11 +91,13 @@ function ChannelAdd(props) {
                 <ErrorMessage
                   name="channel"
                   render={(msg) => (
-                    <div className="form-error add-channel__error">{t(msg)}</div>
+                    <div className="form-error channel-rename__error">
+                      {t(msg)}
+                    </div>
                   )}
                 />
               </div>
-              <div className="add-channel__footer">
+              <div className="channel-rename__footer">
                 <button
                   className="button button_secondary"
                   type="button"
@@ -119,4 +122,4 @@ function ChannelAdd(props) {
   );
 }
 
-export default ChannelAdd;
+export default ChannelRename;

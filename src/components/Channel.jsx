@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { actions } from '../slices/index.js';
+import { actions } from '../store/index.js';
 
 import '../styles/channel.css';
 

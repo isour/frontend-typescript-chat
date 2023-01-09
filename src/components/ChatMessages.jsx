@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { selectors } from '../store/index.js';
 
 function ChatMessages({ className }) {
   const { t } = useTranslation();
-  const { messages } = useSelector((state) => state.messagesInfo);
+  const messages = useSelector(selectors.messagesSelectors.selectAll);
   const { currentChannelId } = useSelector((state) => state.channelsInfo);
 
   const bottomRef = useRef(null);

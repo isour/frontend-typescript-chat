@@ -1,13 +1,16 @@
 /* eslint-disable no-param-reassign */
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
-import { createSlice } from '@reduxjs/toolkit';
+const modalsAdapter = createEntityAdapter({});
 
-const modalSlice = createSlice({
+const initialState = modalsAdapter.getInitialState({
+  isOpened: false,
+  type: null,
+});
+
+const modalsSlice = createSlice({
   name: 'modal',
-  initialState: {
-    isOpened: false,
-    type: null,
-  },
+  initialState,
   reducers: {
     openModal: (state, { payload }) => {
       const { type, item } = payload;
@@ -23,6 +26,6 @@ const modalSlice = createSlice({
   },
 });
 
-export const { actions } = modalSlice;
+export const { actions } = modalsSlice;
 
-export default modalSlice.reducer;
+export default modalsSlice.reducer;

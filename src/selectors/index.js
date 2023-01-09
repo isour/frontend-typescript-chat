@@ -1,11 +1,7 @@
-export const getCurrentChannel = ({ channelsInfo }) => {
-  const { channels, currentChannelId } = channelsInfo;
-  return channels
-    ? channels.find((channel) => channel.id === currentChannelId)
-    : 0;
-};
+import { useSelector } from 'react-redux';
+import { selectors } from '../store/index.js';
 
-export const getChannelsList = (state) => {
-  const { channels } = state.channelsInfo;
+export default () => {
+  const channels = useSelector(selectors.channelSelectors.selectAll);
   return channels.map(({ name }) => name);
 };

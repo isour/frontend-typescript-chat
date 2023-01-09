@@ -4,19 +4,19 @@ import { useTranslation } from 'react-i18next';
 
 import '../styles/chat-channels.css';
 import Channel from './Channel.jsx';
-import { actions } from '../slices/index.js';
+import { actions, selectors } from '../store/index.js';
 
-function ChatChannels({ className }) {
+const ChatChannels = ({ className }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { channels } = useSelector((state) => state.channelsInfo);
+  const channels = useSelector(selectors.channelSelectors.selectAll);
 
   const showModal = (type, item = null) => {
     dispatch(actions.openModal({ type, isOpened: true, item }));
   };
 
   // eslint-disable-next-line max-len
-  const channelsList = () => channels.map((channel) => <Channel channel={channel} key={channel.id} />);
+  const channelsList = () => channels?.map((channel) => <Channel channel={channel} key={channel.id} />);
 
   return (
     <div className={`chat-channels ${className}`}>
@@ -35,6 +35,6 @@ function ChatChannels({ className }) {
       </div>
     </div>
   );
-}
+};
 
 export default ChatChannels;

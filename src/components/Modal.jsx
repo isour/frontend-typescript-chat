@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { actions } from '../slices/index.js';
-import ChannelAdd from '../modals/ChannelAdd.jsx';
-import ChannelRename from '../modals/ChannelRename.jsx';
-import ChannelRemove from '../modals/ChannelRemove.jsx';
+import { actions } from '../store/index.js';
+import ChannelAdd from './modals/ChannelAdd.jsx';
+import ChannelRename from './modals/ChannelRename.jsx';
+import ChannelRemove from './modals/ChannelRemove.jsx';
 
 const modalTypes = {
   channel_add: ChannelAdd,

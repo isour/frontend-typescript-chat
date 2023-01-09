@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { Provider as RollbarProvider } from '@rollbar/react';
 import { io } from 'socket.io-client';
 import reportWebVitals from './reportWebVitals';
 
 import App from './components/App.jsx';
-import rootReducer from './slices/index.js';
+import store from './store/index.js';
 import apiInit from './logic/api.js';
 import ApiContext from './contexts/ApiContext';
 import I18Provider from './providers/i18nProvider.js';
@@ -17,8 +16,6 @@ const isProd = process.env.NODE_ENV === 'production';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const initApp = () => {
-  const store = configureStore({ reducer: rootReducer });
-
   const socket = io();
   const api = apiInit(socket, store);
 

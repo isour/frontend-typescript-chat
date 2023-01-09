@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
 
-import useApi from '../hooks/useApi.js';
-import '../styles/channel-remove.css';
+import useApi from '../../hooks/useApi.js';
+import '../../styles/channel-remove.css';
 
-function ChannelRemove(props) {
+const ChannelRemove = (props) => {
   const api = useApi();
   const { onHide } = props;
   const currentModal = useSelector((state) => state.modal);
@@ -17,15 +17,15 @@ function ChannelRemove(props) {
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  const createChannel = (values, { setStatus, setSubmitting }) => {
+  const handleRemoveChannel = (values, { setStatus, setSubmitting }) => {
     setStatus();
     setSubmitting(true);
-    const newChannel = {
+    const removeChannel = {
       id: currentChannel.id,
       name: values.channel,
     };
     api.removeChannel(
-      newChannel,
+      removeChannel,
       () => {
         setSubmitting(false);
         onHide();
@@ -44,7 +44,7 @@ function ChannelRemove(props) {
         <Modal.Title>{t('modals.remove')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Formik initialValues={{ channel: currentChannel.name }} onSubmit={createChannel}>
+        <Formik initialValues={{ channel: currentChannel.name }} onSubmit={handleRemoveChannel}>
           {(formik) => (
             <FormikForm className="channel-remove">
               <div className="channel-remove__content">
@@ -78,6 +78,6 @@ function ChannelRemove(props) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default ChannelRemove;
