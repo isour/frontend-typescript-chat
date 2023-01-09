@@ -12,7 +12,7 @@ const modalTypes = {
   channel_rename: ChannelRename,
 };
 
-const Modal = () => {
+function Modal() {
   const dispatch = useDispatch();
   const { type } = useSelector((state) => state.modal);
 
@@ -27,6 +27,6 @@ const Modal = () => {
   return (
     <Component onHide={hideModal} />
   );
-};
+}
 
 export default Modal;

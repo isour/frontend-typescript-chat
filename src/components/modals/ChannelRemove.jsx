@@ -9,7 +9,7 @@ import { useRollbar } from '@rollbar/react';
 import useApi from '../../hooks/useApi.js';
 import '../../styles/channel-remove.css';
 
-const ChannelRemove = (props) => {
+function ChannelRemove(props) {
   const api = useApi();
   const { onHide } = props;
   const currentModal = useSelector((state) => state.modal);
@@ -78,6 +78,6 @@ const ChannelRemove = (props) => {
       </Modal.Body>
     </Modal>
   );
-};
+}
 
 export default ChannelRemove;
