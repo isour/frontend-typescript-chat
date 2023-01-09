@@ -14,7 +14,7 @@ import { actions } from '../store/index.js';
 
 import '../styles/chat.css';
 
-function Chat() {
+const Chat = () => {
   const { getToken } = useAuth();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -48,6 +48,6 @@ function Chat() {
       <ChatForm className="chat-layout__form" />
     </div>
   );
-}
+};
 
 export default Chat;

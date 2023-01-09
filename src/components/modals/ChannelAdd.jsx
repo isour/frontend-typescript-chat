@@ -18,7 +18,7 @@ import getChannelsNames from '../../selectors/index.js';
 
 const channelValidation = (channels) => getValidation(['channel'], { channels });
 
-function ChannelAdd(props) {
+const ChannelAdd = (props) => {
   const dispatch = useDispatch();
   const api = useApi();
   const { onHide } = props;
@@ -117,6 +117,6 @@ function ChannelAdd(props) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default ChannelAdd;

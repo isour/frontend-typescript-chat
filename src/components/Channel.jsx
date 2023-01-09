@@ -6,7 +6,7 @@ import { actions } from '../store/index.js';
 
 import '../styles/channel.css';
 
-function Channel({ channel }) {
+const Channel = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { currentChannelId } = useSelector((state) => state.channelsInfo);
@@ -89,6 +89,6 @@ function Channel({ channel }) {
       {channel.removable ? getMenuButton(channel) : ''}
     </div>
   );
-}
+};
 
 export default Channel;

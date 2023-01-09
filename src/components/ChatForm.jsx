@@ -15,7 +15,7 @@ import '../styles/chat-form.css';
 
 const messageValidation = getValidation(['message']);
 
-function ChatForm({ className }) {
+const ChatForm = ({ className }) => {
   const { t } = useTranslation();
   const api = useApi();
   const { user } = useAuth();
@@ -93,6 +93,6 @@ function ChatForm({ className }) {
       )}
     </Formik>
   );
-}
+};
 
 export default ChatForm;

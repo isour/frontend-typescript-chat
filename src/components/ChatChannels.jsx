@@ -6,7 +6,7 @@ import '../styles/chat-channels.css';
 import Channel from './Channel.jsx';
 import { actions, selectors } from '../store/index.js';
 
-function ChatChannels({ className }) {
+const ChatChannels = ({ className }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const channels = useSelector(selectors.channelSelectors.selectAll);
@@ -35,6 +35,6 @@ function ChatChannels({ className }) {
       </div>
     </div>
   );
-}
+};
 
 export default ChatChannels;

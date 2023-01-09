@@ -8,7 +8,7 @@ const defaultAuth = {
   token: '',
 };
 
-function AuthProvider({ children }) {
+const AuthProvider = ({ children }) => {
   const haveSavedAuth = () => {
     const token = localStorage.getItem('token');
     const userName = localStorage.getItem('username');
@@ -50,6 +50,6 @@ function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthProvider;

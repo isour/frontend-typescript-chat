@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/useAuth.js';
 import '../styles/header.css';
 
-function Header() {
+const Header = () => {
   const { t } = useTranslation();
   const { user, logOut } = useAuth();
 
@@ -25,6 +25,6 @@ function Header() {
       )}
     </div>
   );
-}
+};
 
 export default Header;

@@ -17,7 +17,7 @@ import getChannelsNames from '../../selectors/index.js';
 
 const channelValidation = (channels) => getValidation(['channel'], { channels });
 
-function ChannelRename(props) {
+const ChannelRename = (props) => {
   const api = useApi();
   const { onHide } = props;
   const currentModal = useSelector((state) => state.modal);
@@ -120,6 +120,6 @@ function ChannelRename(props) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default ChannelRename;

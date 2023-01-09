@@ -13,7 +13,7 @@ import routes from '../routes';
 import useAuth from '../hooks/useAuth.js';
 import '../styles/login-page.css';
 
-function Login() {
+const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { logIn } = useAuth();
@@ -132,6 +132,6 @@ function Login() {
       )}
     </Formik>
   );
-}
+};
 
 export default Login;

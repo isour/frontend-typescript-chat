@@ -15,7 +15,7 @@ import '../styles/registration-page.css';
 
 const registerValidation = getValidation(['username', 'password', 'password2']);
 
-function Register() {
+const Register = () => {
   const navigate = useNavigate();
   const [registerFailed, setRegisterFailed] = useState(false);
   const { logIn } = useAuth();
@@ -159,6 +159,6 @@ function Register() {
       )}
     </Formik>
   );
-}
+};
 
 export default Register;
