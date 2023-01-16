@@ -1,31 +1,27 @@
 import React from 'react';
 
-interface IMessage {
-    readonly message: string;
-    readonly channelId: number | null;
-    readonly username: string;
-}
+import { TonSuccess, TonTimeout } from '../logic/api';
 
 interface IChannel {
     readonly name: string;
 }
 
 interface IApiType {
-    readonly sendMessage: (message: IMessage, fn: () => void, fn2: (error: any) => void) => void;
+    readonly sendMessage: (message: IMessage, onSuccess: TonSuccess, onTimeout: TonTimeout) => void;
     readonly createChannel: (
-        name: IChannel,
-        fn: (result: any) => void,
-        fn2: (error: any) => void
+        name: any,
+        onSuccess: TonSuccess,
+        onTimeout: TonTimeout
     ) => void;
     readonly removeChannel: (
-        name: IChannel,
-        fn: (result: any) => void,
-        fn2: (error: any) => void
+        name: any,
+        onSuccess: TonSuccess,
+        onTimeout: TonTimeout
     ) => void;
     readonly renameChannel: (
-        name: IChannel,
-        fn: (result: any) => void,
-        fn2: (error: any) => void
+        name: any,
+        onSuccess: TonSuccess,
+        onTimeout: TonTimeout
     ) => void;
 }
 

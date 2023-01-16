@@ -1,9 +1,10 @@
 import { Socket } from 'socket.io-client';
 
-import { actions, rootState } from '../store/index';
+import { actions, rootState, appDispatch } from '../store/index';
+import { IApiType } from '../contexts/ApiContext';
 
 type TonSuccess = (ar: readonly any[]) => any;
-type TonTimeout = () => any;
+type TonTimeout = (error?: any) => any;
 
 const acknowledgeWithTimeout = (onSuccess: TonSuccess, onTimeout: TonTimeout) => {
   /* eslint-disable functional/no-let */
@@ -23,9 +24,9 @@ const acknowledgeWithTimeout = (onSuccess: TonSuccess, onTimeout: TonTimeout) =>
   };
 };
 
-const initSocketApi = (socket: Readonly<Socket>, store: rootState) => {
+const initSocketApi = (socket: Readonly<Socket>, store: rootState):IApiType => {
   const createEmit = (event: string) => (
-    message: string,
+    message: IMessage | any,
     onSuccess: TonSuccess,
     onTimeout: TonTimeout,
   ) => {
@@ -56,6 +57,6 @@ const initSocketApi = (socket: Readonly<Socket>, store: rootState) => {
   };
 };
 
-const api = (socket: Readonly<Socket>, store: rootState) => initSocketApi(socket, store);
+export { TonSuccess, TonTimeout };
 
-export default api;
+export default initSocketApi;
