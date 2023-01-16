@@ -14,8 +14,6 @@ const selectors = {
   messagesSelectors,
 };
 
-export { actions, selectors };
-
 const store = configureStore({
   reducer: {
     channelsInfo,
@@ -24,5 +22,9 @@ const store = configureStore({
   },
   devTools: process.env.NODE_ENV !== 'production',
 });
+
+type rootState = ReturnType<typeof store.getState>;
+
+export { actions, selectors, rootState };
 
 export default store;

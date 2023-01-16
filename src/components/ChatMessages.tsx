@@ -1,14 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectors } from '../store/index.js';
+import { selectors, rootState } from '../store/index';
 
-const ChatMessages = ({ className }) => {
+interface IProps {
+  readonly className: string;
+}
+
+const ChatMessages: React.FC<IProps> = ({ className }) => {
   const { t } = useTranslation();
   const messages = useSelector(selectors.messagesSelectors.selectAll);
-  const { currentChannelId } = useSelector((state) => state.channelsInfo);
+  const { currentChannelId } = useSelector((state: rootState) => state.channelsInfo);
 
-  const bottomRef = useRef(null);
+  const bottomRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView();

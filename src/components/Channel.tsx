@@ -2,22 +2,26 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { actions } from '../store/index.js';
 
+import { actions, rootState } from '../store/index';
 import '../styles/channel.css';
 
-const Channel = ({ channel }) => {
+interface IProps {
+  readonly channel: IChannel;
+}
+
+const Channel: React.FC<IProps> = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { currentChannelId } = useSelector((state) => state.channelsInfo);
+  const { currentChannelId } = useSelector((state: rootState) => state.channelsInfo);
   const [active, setActive] = useState(false);
 
-  const showModal = (type, item = null) => {
-    dispatch(actions.openModal({ type, isOpened: true, item }));
+  const showModal = (type: string) => {
+    dispatch(actions.openModal({ type, isOpened: true, item: channel }));
   };
 
-  const openChannel = (currentChannel) => {
-    dispatch(actions.setChannel(currentChannel));
+  const openChannel = () => {
+    dispatch(actions.setChannel(channel));
   };
 
   const openMenu = () => {
@@ -26,12 +30,12 @@ const Channel = ({ channel }) => {
 
   const removeClick = () => {
     setActive(false);
-    showModal('channel_remove', channel);
+    showModal('channel_remove');
   };
 
   const renameClick = () => {
     setActive(false);
-    showModal('channel_rename', channel);
+    showModal('channel_rename');
   };
 
   const getSubmenu = () => (
@@ -45,7 +49,7 @@ const Channel = ({ channel }) => {
     </div>
   );
 
-  const getChannelClassNames = (channelIter) => classNames(
+  const getChannelClassNames = (channelIter: IChannel) => classNames(
     { 'chat-channels__channel': true },
     { channel: true },
     { channel_active: active },
@@ -53,26 +57,27 @@ const Channel = ({ channel }) => {
     { channel_removable: channelIter.removable },
   );
 
-  const getMenuButton = (currentChannel) => (
+  const getMenuButton = () => (
     <>
       <button
         type="button"
         className="channel__button"
-        onClick={() => openMenu(currentChannel)}
+        onClick={() => openMenu()}
       >
         {t('channels.menu')}
       </button>
-      {getSubmenu(currentChannel)}
+      {getSubmenu()}
     </>
   );
 
-  const channelEl = useRef();
+  const channelEl = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClick = (e) => {
+    const handleClick = (e: Event) => {
+      const { target } = e;
       if (channelEl && channelEl.current) {
         const ref = channelEl.current;
-        if (!ref.contains(e.target)) {
+        if (!ref.contains(target as HTMLDivElement)) {
           setActive(false);
         }
       }
@@ -83,10 +88,10 @@ const Channel = ({ channel }) => {
 
   return (
     <div key={channel.id} className={getChannelClassNames(channel)} ref={channelEl}>
-      <button type="button" className="channel__content" onClick={() => openChannel(channel)} onKeyDown={() => openChannel(channel)}>
+      <button type="button" className="channel__content" onClick={() => openChannel()} onKeyDown={() => openChannel()}>
         {`# ${channel.name}`}
       </button>
-      {channel.removable ? getMenuButton(channel) : ''}
+      {channel.removable ? getMenuButton() : ''}
     </div>
   );
 };

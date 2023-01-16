@@ -1,28 +1,41 @@
 import React from 'react';
-import { Formik, Form as FormikForm } from 'formik';
+import { Formik, Form as FormikForm, FormikHelpers } from 'formik';
 import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
 
-import useApi from '../../hooks/useApi.js';
+import { rootState } from '../../store/index';
+import useApi from '../../hooks/useApi';
 import '../../styles/channel-remove.css';
 
-const ChannelRemove = (props) => {
+interface IProps {
+  readonly onHide: () => void;
+}
+
+interface IFormValues {
+  readonly channel: string;
+}
+
+const ChannelRemove: React.FC<IProps> = (props) => {
   const api = useApi();
   const { onHide } = props;
-  const currentModal = useSelector((state) => state.modal);
+  const currentModal = useSelector((state: rootState) => state.modal);
   const currentChannel = currentModal.item;
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  const handleRemoveChannel = (values, { setStatus, setSubmitting }) => {
+  const handleRemoveChannel = (
+    values: IFormValues,
+    { setStatus, setSubmitting }: FormikHelpers<IFormValues>,
+  ) => {
     setStatus();
     setSubmitting(true);
-    const removeChannel = {
+    const removeChannel: IChannel = {
       id: currentChannel.id,
       name: values.channel,
+      removable: true,
     };
     api.removeChannel(
       removeChannel,
@@ -32,6 +45,7 @@ const ChannelRemove = (props) => {
         toast.success(t('channels.removed'));
       },
       (error) => {
+        toast.error(error);
         rollbar.error(error);
         setSubmitting(false);
       },
@@ -51,7 +65,7 @@ const ChannelRemove = (props) => {
                 <div className="channel-remove__text">
                   {t('modals.remove')}
                   {' '}
-                  {formik.channel}
+                  {currentChannel.name}
                   ?
                 </div>
               </div>

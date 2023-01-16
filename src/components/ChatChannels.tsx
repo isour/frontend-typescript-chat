@@ -3,15 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import '../styles/chat-channels.css';
-import Channel from './Channel.jsx';
-import { actions, selectors } from '../store/index.js';
+import Channel from './Channel';
+import { actions, selectors } from '../store/index';
 
-const ChatChannels = ({ className }) => {
+interface IProps {
+  readonly className: string;
+}
+
+const ChatChannels: React.FC<IProps> = ({ className }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const channels = useSelector(selectors.channelSelectors.selectAll);
 
-  const showModal = (type, item = null) => {
+  const showModal = (type: string, item: number | null = null) => {
     dispatch(actions.openModal({ type, isOpened: true, item }));
   };
 

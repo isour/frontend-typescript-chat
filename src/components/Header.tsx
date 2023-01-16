@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import useAuth from '../hooks/useAuth.js';
+import useAuth from '../hooks/useAuth';
 import '../styles/header.css';
+import { TAuthContext } from '../contexts/AuthContext';
 
-const Header = () => {
+interface IProps {
+  readonly className?: string;
+}
+
+const Header: React.FC<IProps> = () => {
   const { t } = useTranslation();
-  const { user, logOut } = useAuth();
+  const { user, logOut } = useAuth() as TAuthContext;
 
   return (
     <div className="header">

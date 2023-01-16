@@ -3,25 +3,34 @@ import { useNavigate, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
 import {
-  Formik, Field, ErrorMessage, Form as FormikForm,
+  Formik, Field, ErrorMessage, Form as FormikForm, FormikHelpers, FormikProps,
 } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
 
 import routes from '../routes';
-import useAuth from '../hooks/useAuth.js';
+import useAuth from '../hooks/useAuth';
 import '../styles/login-page.css';
+import { TAuthContext } from '../contexts/AuthContext';
+
+interface IFormValues {
+  readonly username: string;
+  readonly password: string;
+}
 
 const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { logIn } = useAuth();
+  const { logIn } = useAuth() as TAuthContext;
   const rollbar = useRollbar();
 
   const [authFailed, setAuthFailed] = useState(false);
 
-  const loginSubmit = async (values, { setSubmitting, setStatus }) => {
+  const loginSubmit = async (
+    values: IFormValues,
+    { setSubmitting, setStatus }: FormikHelpers<IFormValues>,
+  ) => {
     setStatus();
     setAuthFailed(false);
     setSubmitting(true);
@@ -35,7 +44,7 @@ const Login = () => {
         userName: values.username,
       });
       navigate(routes.frontend.chatPath());
-    } catch (error) {
+    } catch (error: any) {
       rollbar.error(error);
       if (!error.isAxiosError) {
         toast.error(t('errors.unknown'));
@@ -50,10 +59,13 @@ const Login = () => {
     }
   };
 
-  const getInputClassNames = (formik, inputName) => classNames(
+  const getInputClassNames = (
+    formik: Readonly<FormikProps<IFormValues>>,
+    inputName: string,
+  ) => classNames(
     { 'chat-form__input': true },
     { 'form-text': true },
-    { 'form-text_error': formik.errors[inputName] },
+    { 'form-text_error': formik.errors[inputName as keyof IFormValues] },
   );
 
   return (

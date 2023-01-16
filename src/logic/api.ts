@@ -1,6 +1,11 @@
-import { actions } from '../store/index.js';
+import { Socket } from 'socket.io-client';
 
-const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
+import { actions, rootState } from '../store/index';
+
+type TonSuccess = (ar: readonly any[]) => any;
+type TonTimeout = () => any;
+
+const acknowledgeWithTimeout = (onSuccess: TonSuccess, onTimeout: TonTimeout) => {
   /* eslint-disable functional/no-let */
   let isCalled = false;
 
@@ -10,7 +15,7 @@ const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
     onTimeout();
   }, 2000);
 
-  return (...args) => {
+  return (...args: readonly any[]) => {
     if (isCalled) return;
     isCalled = true;
     clearTimeout(timerId);
@@ -18,8 +23,12 @@ const acknowledgeWithTimeout = (onSuccess, onTimeout) => {
   };
 };
 
-const initSocketApi = (socket, store) => {
-  const createEmit = (event) => (message, onSuccess, onTimeout) => {
+const initSocketApi = (socket: Readonly<Socket>, store: rootState) => {
+  const createEmit = (event: string) => (
+    message: string,
+    onSuccess: TonSuccess,
+    onTimeout: TonTimeout,
+  ) => {
     socket.emit(event, message, acknowledgeWithTimeout(onSuccess, onTimeout));
   };
 
@@ -47,6 +56,6 @@ const initSocketApi = (socket, store) => {
   };
 };
 
-const api = (socket, store) => initSocketApi(socket, store);
+const api = (socket: Readonly<Socket>, store: rootState) => initSocketApi(socket, store);
 
 export default api;

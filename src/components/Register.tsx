@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import {
-  Formik, Field, ErrorMessage, Form as FormikForm,
+  Formik, Field, ErrorMessage, Form as FormikForm, FormikProps,
 } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -9,22 +9,29 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useRollbar } from '@rollbar/react';
 
 import routes from '../routes';
-import getValidation from '../logic/validationRules.js';
-import useAuth from '../hooks/useAuth.js';
+import getValidation from '../logic/validationRules';
+import useAuth from '../hooks/useAuth';
 import '../styles/registration-page.css';
+import { TAuthContext } from '../contexts/AuthContext';
+
+interface IFormValues {
+  readonly username: string;
+  readonly password: string;
+  readonly password2: string;
+}
 
 const registerValidation = getValidation(['username', 'password', 'password2']);
 
 const Register = () => {
   const navigate = useNavigate();
   const [registerFailed, setRegisterFailed] = useState(false);
-  const { logIn } = useAuth();
+  const { logIn } = useAuth() as TAuthContext;
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  const nameEl = useRef(null);
+  const nameEl = useRef<null | HTMLInputElement>(null);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: IFormValues) => {
     try {
       const result = await axios.post(routes.backend.registerPath(), {
         username: values.username,
@@ -35,14 +42,14 @@ const Register = () => {
         userName: result.data.username,
       });
       navigate(routes.frontend.chatPath());
-    } catch (error) {
+    } catch (error: any) {
       rollbar.error(error);
       if (!error.isAxiosError) {
         throw error;
       }
 
       if (error.response.status === 409) {
-        nameEl.current.focus();
+        nameEl.current?.focus();
         setRegisterFailed(true);
         return;
       }
@@ -52,13 +59,16 @@ const Register = () => {
   };
 
   useEffect(() => {
-    nameEl.current.focus();
+    nameEl.current?.focus();
   }, []);
 
-  const getInputClassNames = (formik, inputName) => classNames(
+  const getInputClassNames = (
+    formik: Readonly<FormikProps<IFormValues>>,
+    inputName: string,
+  ) => classNames(
     { 'form-register__input': true },
     { 'form-text': true },
-    { 'form-text_error': formik.errors[inputName] || registerFailed },
+    { 'form-text_error': formik.errors[inputName as keyof IFormValues] || registerFailed },
   );
 
   return (

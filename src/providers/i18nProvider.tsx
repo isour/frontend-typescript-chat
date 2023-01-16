@@ -1,9 +1,13 @@
 import React from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
-import I18nLoc from '../i18n/index.js';
+import I18nLoc from '../i18n/index';
 
-const I18Provider = ({ children }) => {
+interface IProps {
+  readonly children: React.ReactNode;
+}
+
+const I18Provider: React.FC<IProps> = ({ children }) => {
   const i18n = i18next.createInstance();
 
   i18n.use(initReactI18next).init({

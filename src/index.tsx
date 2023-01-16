@@ -2,21 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Provider as RollbarProvider } from '@rollbar/react';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import reportWebVitals from './reportWebVitals';
 
-import App from './components/App.jsx';
-import store from './store/index.js';
-import apiInit from './logic/api.js';
+import App from './components/App';
+import store, { rootState } from './store/index';
+import apiInit from './logic/api';
 import ApiContext from './contexts/ApiContext';
-import I18Provider from './providers/i18nProvider.js';
-import AuthProvider from './providers/AuthProvider.js';
+import I18Provider from './providers/i18nProvider';
+import AuthProvider from './providers/AuthProvider';
 
 const isProd = process.env.NODE_ENV === 'production';
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 const initApp = () => {
-  const socket = io();
+  const socket: Socket = io();
   const api = apiInit(socket, store);
 
   const rollbarConfig = {

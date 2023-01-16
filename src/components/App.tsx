@@ -3,27 +3,30 @@ import {
   BrowserRouter, Routes, Route, Navigate,
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import leoProfanity from 'leo-profanity';
+// import leoProfanity from 'leo-profanity';
 
-import routes from '../routes.js';
-import Login from './Login.jsx';
-import Chat from './Chat.jsx';
-import NotFound from './NotFound.jsx';
-import Register from './Register.jsx';
-import Header from './Header.jsx';
-import Modal from './Modal.jsx';
-import useAuth from '../hooks/useAuth.js';
+import routes from '../routes';
+import Login from './Login';
+import Chat from './Chat';
+import NotFound from './NotFound';
+import Register from './Register';
+import Header from './Header';
+import Modal from './Modal';
+import useAuth from '../hooks/useAuth';
+import { TAuthContext } from '../contexts/AuthContext';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/App.scss';
 
 const AuthRedirect = () => {
-  const { isGuest } = useAuth();
+  const { isGuest } = useAuth() as TAuthContext;
   return isGuest() ? <Navigate to="/login" replace /> : <Chat />;
 };
 
 const App = () => {
-  const ruDict = leoProfanity.getDictionary('ru');
-  leoProfanity.add(ruDict);
+  // const ruDict = leoProfanity.getDictionary('ru');
+  // leoProfanity.add(ruDict);
+  // ???
+  console.log('test');
 
   return (
     <>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const validationRules = (type, vars) => {
+const validationRules = (type: string, vars: any) => {
   /* eslint-disable functional/no-let */
   let channels = [];
   if (vars) {
@@ -36,10 +36,12 @@ const validationRules = (type, vars) => {
       .notOneOf(channels, 'modals.uniq'),
   };
 
-  return yupRules[type];
+  type TYupValidations = typeof yupRules;
+
+  return yupRules[type as keyof TYupValidations];
 };
 
-const getValidation = (types, vars = null) => {
+const getValidation = (types: ReadonlyArray<string>, vars: any = null) => {
   const typesList = types.reduce(
     (acc, type) => ({
       ...acc,

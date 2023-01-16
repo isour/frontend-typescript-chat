@@ -5,6 +5,10 @@ const modalsAdapter = createEntityAdapter({});
 
 const initialState = modalsAdapter.getInitialState({
   isOpened: false,
+  item: {
+    id: 1,
+    name: '',
+  },
   type: null,
 });
 

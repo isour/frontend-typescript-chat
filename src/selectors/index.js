@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectors } from '../store/index.js';
+import { selectors } from '../store/index';
 
 export default () => {
   const channels = useSelector(selectors.channelSelectors.selectAll);
